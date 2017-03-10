@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Overwatched</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+  	body.grey .navbar {
+  		background: #e7e7e7;
+  	}
+  	body.grey .navbar a {
+  		color: #777;
+  	}
+
+  	body.grey header>div {
+  		background: #eee;
+  	}
+
+  	body.orange .navbar {
+  		background: #f0ad4e;
+  	}
+
+
+  	body.orange header>div {
+  		background: #f0ad4e;
+  	}
+
+  	body.orange .flipper .back {
+  		background: #f0ad4e;
+  		border-radius: 3px;
+  		color: #fff;
+  	}
+
+  	body.blue .navbar {
+  		background-color: #337ab7;
+  	}
+
+  	body.blue header>div {
+  		background: #337ab7;
+  	}
+  	body.blue .flipper .back {
+  		background: #337ab7;
+  		border-radius: 3px;
+  		color: #fff;
+  	}
+
+  	body.green .navbar {
+  		background: #5cb85c;
+  	}
+
+  	body.green header>div {
+  		background: #5cb85c;
+  	}
+
+  	body.green .flipper .back {
+  		background: #5cb85c;
+  		border-radius: 3px;
+  		color: #fff;
+  	}
+
+  	body.orange .navbar a, body.blue .navbar a,body.green .navbar a {
+  		color: #fff;
+  	}
+  	body.green header>div h1,body.blue header>div h1,body.orange header>div h1 {
+  		color: #fff;
+  	}
+
+  	#mainNav .navbar-header .navbar-brand img {
+  		height: 100%;
+  	}
+  	#main-head.collapsed {
+  		opacity: 0;
+  		height: 0px;
+  	}
+
+  	#main-head {
+  		-webkit-transition: opacity .35s,height .55s ;
+  		transition: opacity .35s,height  .55s;
+  	}
+
+  	.row-fluid{
+    overflow: hidden;
+	}
+    /*
+	[class*="col-"]{
+	    margin-bottom: -99999px;
+	    padding-bottom: 99999px;
+	}
+    */
+	.hero-button.active {
+		background-color: #337ab7;
+		color: #fff;
+	}
+
+	.user-item {
+		overflow: hidden;
+		width: 125px;
+		height: 210px;
+		border-radius: 5px;
+	}
+
+	.row-margin-top {
+		margin-top: 5px;
+	}
+
+	@media (max-width: 401px) {
+		.list-inline>li {
+			padding-right: 3px;
+			padding-left: 3px;
+		}
+		.btn {
+			padding: 4px 8px;
+		}
+	}
+
+	/* page loader */
+	#loader {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+
+/* Transparent Overlay */
+#loader:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+#loader:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+#loader:not(:required):after {
+  	content: '';
+  	display: block;
+  	font-size: 10px;
+  	/*
+  	width: 1em;
+  	height: 1em;
+  	*/
+  	margin-top: -0.5em;
+    /*
+  	-webkit-animation: spinner 1500ms infinite linear;
+  	-moz-animation: spinner 1500ms infinite linear;
+  	-ms-animation: spinner 1500ms infinite linear;
+  	-o-animation: spinner 1500ms infinite linear;
+  	animation: spinner 1500ms infinite linear;
+  	border-radius: 0.5em;
+  	-webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  	box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  	*/
+  	width: 150px;
+	height: 150px;
+	margin: -75px 0 0 -75px;
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spinner 1500ms infinite linear;
+  	-moz-animation: spinner 1500ms infinite linear;
+  	-ms-animation: spinner 1500ms infinite linear;
+  	-o-animation: spinner 1500ms infinite linear;
+  	animation: spinner 1500ms infinite linear;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* loading end */
+/* modes item img size */
+.modes-item {
+	width: 130px;
+	height: 215px;
+	overflow: hidden;
+}
+
+.modes-item img{
+	width: 100%;
+}
+
+/* flip box */
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000px;
+	transform-style: preserve-3d;
+}
+	/*  UPDATED! flip the pane when hovered */
+	.flip-container:hover .back {
+		transform: rotateY(0deg);
+	}
+	.flip-container:hover .front {
+	    transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 125px;
+	height: 210px;
+}
+
+.flip-container, .front.map, .back.map {
+	width: 590px;
+	height: 310px;
+}
+
+.flip-container, .front.modes, .back.modes {
+	width: 130px;
+	height: 215px;
+}
+
+@media (max-width: 401px) {
+
+	.flip-container, .front.map, .back.map {
+		width: 300px;
+		height: 215px;
+	}
+
+	.flip-container, .front.map img {
+		width: 100%
+	}
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/*  UPDATED! front pane, placed above back */
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(-180deg);
+}
+
+/* flexbox to make the vertical align simpler */
+/*https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes#Browser_compatibility*/
+.flexbox {
+ display:flex;
+ justify-content:center;
+ align-items: center;
+ flex-flow: column;
+}
+  </style>
+</head>
+
+
+
+<body class="grey">
+	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top hidden">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll nav-link" href="#main"><img src="https://itsroryg.github.io/images/overwatch2.png" align=left>Overwatched</a>
+            </div>
+            <!--
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <a class="page-scroll1 nav-link" href="#main">Main page</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll1 nav-link" href="#modes">Game Modes</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll1 nav-link" href="#heroes">Heroes</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll1 nav-link" href="#maps">Maps</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+		<div class="jumbotron text-center" id="main-head">
+		  <h1>Overwatched</h1>
+		  <p>Overwatched, information for the Blizzard Entertainment game Overwatch</p>
+		  <img src="https://itsroryg.github.io/images/overwatch2.png" class="img-rounded" alt="Overwatch Logo" width="204" height="160">
+		</div>
+		<div class="jumbotron text-center hidden" id="heroes-head">
+		  <h1>Heroes</h1>
+		  <img src="https://itsroryg.github.io/images/overwatch2.png" class="img-rounded" alt="Overwatch Logo" height="80">
+		</div>
+		<div class="jumbotron text-center hidden" id="modes-head">
+		  <h1>Modes</h1>
+		  <img src="https://itsroryg.github.io/images/overwatch2.png" class="img-rounded" alt="Overwatch Logo" height="80">
+		</div>
+		<div class="jumbotron text-center hidden" id="maps-head">
+		  <h1>Maps</h1>
+		  <img src="https://itsroryg.github.io/images/overwatch2.png" class="img-rounded" alt="Overwatch Logo" height="80">
+		</div>
+
+	</header>
+
+	<div class="container" style="position: relative;">
+  		<div class="row" id="main">
+		    <div class="col-sm-4 text-center">
+		      <h2><u>Game Modes</u></h2>
+		      <h4>Information on Game Modes are here</h4>
+		    	<button type="button" class="btn btn-warning chcont" data-type="modes">Game Modes</button>
+		    </div>
+
+		    <div class="col-sm-4 text-center">
+		      <h2><u>Heroes</u></h2>
+		      <h4>Hero information can be found here</h4>
+		      <button type="button" class="btn btn-primary chcont" data-type="heroes">Heroes</button>
+		    </div>
+
+		    <div class="col-sm-4 text-center">
+		      <h2><u>Maps</u></h2>
+		      <h4>Need map information? Find it here</h4>
+		      <button type="button" class="btn btn-success chcont" data-type="maps">Maps</button>
+		    </div>
+		</div>
+		<div class="row hidden" id="content"></div>
+		<div id="loader"></div>
+	</div>
+   <script type="text/html" id="heroes-tmpl">
+   	<div class="row-fluid text-center">
+   		<ul class="list-inline" id="hero-nav">
+   		<li><button class="btn hero-button active" data-type="all" >All</li>
+   		<li><button class="btn hero-button" data-type="attack">Attack</li>
+   		<li><button class="btn hero-button" data-type="defend">Defend</li>
+   		<li><button class="btn hero-button" data-type="tank">Tank</li>
+   		<li><button class="btn hero-button" data-type="healer">Healer</li>
+   		</ul>
+
+   	<% for(var i=0; i<items.length; i++) {%>
+       <div class="col-lg-2 col-sm-4 col-xs-6 row-margin-top">
+       	<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+			<div class="flipper">
+				<div class="front">
+					<div class="user-item"><img src="<%=items[i].pic%>"><span class="hidden"><%=items[i].name%></span></div>
+				</div>
+				<div class="back flexbox">
+					<div><%=items[i].name%></div>
+					<div><%=items[i].desc%></div>
+				</div>
+			</div>
+		</div>
+
+       </div>
+   	<% } %>
+   </script>
+
+   <script type="text/html" id="maps-tmpl">
+   	<div class="row-fluid text-center">
+   		<% for(var i=0; i<items.length; i++) {%>
+   		<div class="col-lg-6 col-xs-12 text-center">
+   			<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+			<div class="flipper">
+				<div class="front map">
+					<div class="map-item "><img src="<%=items[i].pic%>" class="img-rounded"><span class="hidden"><%=items[i].name%></span></div>
+				</div>
+				<div class="back map flexbox">
+					<div><%=items[i].name%></div>
+					<div><%=items[i].desc%></div>
+				</div>
+			</div>
+		</div>
+   		</div>
+   		<% } %>
+   	</div>
+   </script>
+
+   <script type="text/html" id="modes-tmpl">
+   	<div class="row-fluid text-center">
+   		<% for(var i=0; i<items.length; i++) {%>
+   		<div class="col-lg-2 col-xs-6 text-center">
+   			<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+			<div class="flipper">
+				<div class="front modes">
+					<div class="modes-item"><img src="<%=items[i].pic%>" class="img-rounded"><span class="hidden"><%=items[i].name%></span></div>
+				</div>
+				<div class="back modes flexbox">
+					<div><%=items[i].name%></div>
+					<div><%=items[i].desc%></div>
+				</div>
+			</div>
+		</div>
+   		</div>
+   		<% } %>
+   	</div>
+   </script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+   <script type="text/javascript">
+
+   	if (!Array.prototype.find) {
+	  Array.prototype.find = function(predicate) {
+	    if (this == null) {
+	      throw new TypeError('Array.prototype.find called on null or undefined');
+	    }
+	    if (typeof predicate !== 'function') {
+	      throw new TypeError('predicate must be a function');
+	    }
+	    var list = Object(this);
+	    var length = list.length >>> 0;
+	    var thisArg = arguments[1];
+	    var value;
+
+	    for (var i = 0; i < length; i++) {
+	      value = list[i];
+	      if (predicate.call(thisArg, value, i, list)) {
+	        return value;
+	      }
+	    }
+	    return undefined;
+	  };
+	}
+
+
+   	;(function(window, document, _) {
+
+   		function Page() {
+   	        instance = this;
+
+   	        this.data = {};
+   			this.init = function(input) {
+            	this.data.heroes = JSON.parse(input.heroes);
+            	this.data.maps = JSON.parse(input.maps);
+            	this.data.modes = JSON.parse(input.modes);
+   			};
+
+   			this.getTemplate = function(name) {
+
+	            var container = document.getElementById(name + '-tmpl');
+
+	            if ( container === null ) {
+	                return null;
+	            }
+
+	            return _.template(container.innerHTML);
+	        }
+
+	        this.decodeHtml = function(html) {
+			    var txt = document.createElement("textarea");
+			    txt.innerHTML = html;
+			    return txt.value;
+			}
+
+   			this.switchTheme = function(type) {
+   				var theme;
+
+   				var headCont = document.getElementsByTagName('header')[0];
+   				_.each(headCont.children,function(el){el.classList.add('hidden')});
+   				document.getElementById(type+'-head').classList.remove('hidden');
+   				switch(type) {
+   					case "main":
+   						theme = 'grey';
+   					break;
+		   			case "modes":
+   						theme = 'orange';
+		   			break;
+		   			case "heroes":
+   					    theme = 'blue';
+		   			break;
+		   			case "maps":
+   					    theme = 'green';
+		   			break;
+		   		}
+
+		   		document.body.classList = "";
+		   		document.body.classList.add(theme);
+   			};
+
+   			this.changeContent = function(type) {
+   				var instance = this;
+   				var tmpl = instance.getTemplate(type);
+
+	    		var out = (function(tmpl){
+					var div = document.createElement('div');
+
+					div.innerHTML = tmpl({
+						items: instance.data[type]
+					});
+
+					return div.innerHTML;
+
+				})(tmpl);
+
+				return out;
+   			}
+
+	   		var buttons = document.getElementsByClassName('chcont');
+		   	if(buttons !== null) {
+		   		_.each(buttons,function(el,index,but){
+		   			el.addEventListener('click',function(e){
+		   				e.preventDefault();
+
+		   				document.getElementById('main-head').classList.add('collapsed');
+		   				document.getElementById('mainNav').classList.remove('hidden');
+
+		   				var type = el.dataset.type;
+		   				instance.switchTheme(type);
+
+		   				var out = instance.changeContent(type);
+                        /*
+		   				var tmpl = instance.getTemplate(type);
+	    				var out = (function(tmpl){
+							var div = document.createElement('div');
+
+							div.innerHTML = tmpl({
+								items: instance.data[type]
+							});
+
+							return div.innerHTML;
+
+						})(tmpl);
+                        */
+                        var container = document.getElementById('content');
+						container.innerHTML = instance.decodeHtml(out);
+						document.getElementById('main').classList.add('hidden');
+						container.classList.remove('hidden');
+
+		   			});
+		   		});
+		   	}
+
+		   	var nav = document.getElementsByClassName('nav-link');
+		   	if(nav !== null) {
+		   		_.each(nav,function(el,index,but){
+		   			el.addEventListener('click',function(e){
+		   				e.preventDefault();
+		   				var t = el.hash.substr(1);
+
+                        instance.switchTheme(t);
+                        if(t !== 'main') {
+                        	var out = instance.changeContent(t);
+                        	var container = document.getElementById('content');
+							container.innerHTML = instance.decodeHtml(out);
+						}
+
+                        var headCont = document.getElementsByTagName('header')[0];
+		   					_.each(headCont.children,function(el){el.classList.add('hidden')});
+   							document.getElementById(t+'-head').classList.remove('hidden');
+		   				if(t == 'main') {
+		   					document.getElementById(t+'-head').classList.remove('collapsed');
+		   					document.getElementById('mainNav').classList.add('hidden');
+
+		   					document.getElementById('main').classList.remove('hidden');
+		   					document.getElementById('content').classList.add('hidden');
+		   				}
+		   			});
+		   		});
+		   	}
+
+		   	/* heroes inline navigation */
+		   	document.getElementById('content').addEventListener('click',function(e){
+		   		if(e.target.classList.contains('hero-button')) {
+		   			document.getElementById('loader').style.display='block';
+		   			var el = e.target;
+		   			var op = el.dataset.type;
+
+		   			if(op == 'all') {
+		   				var temp = instance.data.heroes;
+		   			}
+		   			else {
+		   				var temp = instance.data.heroes.filter(function(el) { return el.type==op; });
+		   			}
+
+		   				var tmpl = instance.getTemplate('heroes');
+	    				var out = (function(tmpl){
+							var div = document.createElement('div');
+
+							div.innerHTML = tmpl({
+								items: temp
+							});
+
+							return div.innerHTML;
+
+						})(tmpl);
+
+                        var container = document.getElementById('content');
+
+						setTimeout(function(){
+						console.log(el);
+							document.getElementById('loader').style.display='none';
+							container.innerHTML = instance.decodeHtml(out);
+							_.each(document.getElementsByClassName('hero-button'),function(e){
+				   				e.classList.remove('active');
+				   				if(e.dataset.type == el.dataset.type) {
+				   					e.classList.add('active');
+				   				}
+				   			});
+
+						},1000);
+
+		   		}
+
+		   	});
+		   	/*
+		   	var heroNav = document.getElementById('hero-nav');
+		   	if(heroNav !== null) {
+		   		_.each(heroNav.getElementsByClassName('hero-button'),function(el,index,but){
+		   			el.addEventListener('click',function(e){
+		   				e.preventDefault();
+		   				console.log(e);
+		 			});
+				});
+		   	}
+            */
+		   	this.init(window.ex);
+
+	   	}
+
+	   	window.addEventListener('DOMContentLoaded', function() {
+	   		new Page();
+	   	});
+
+   	})(window, document, _);
+
+
+    var ex={};
+    ex.heroes = '[{"type":"attack","name":"Genji","pic":"https:\/\/itsroryg.github.io\/images\/genji.png","desc":"Player Description"},{"type":"attack","name":"McCree","pic":"https:\/\/itsroryg.github.io\/images\/mcree.png","desc":"Player Description"},{"type":"attack","name":"Pharah","pic":"https:\/\/itsroryg.github.io\/images\/pharah.PNG","desc":"Player Description"},{"type":"attack","name":"Reaper","pic":"https:\/\/itsroryg.github.io\/images\/reaper.PNG","desc":"Player Description"},{"type":"attack","name":"Soldier: 76","pic":"https:\/\/itsroryg.github.io\/images\/76.PNG","desc":"Player Description"},{"type":"attack","name":"Sombra","pic":"https:\/\/itsroryg.github.io\/images\/sombra.PNG","desc":"Player Description"},{"type":"attack","name":"Tracer","pic":"https:\/\/itsroryg.github.io\/images\/tracer.PNG","desc":"Player Description"},{"type":"defend","name":"Bastion","pic":"https:\/\/itsroryg.github.io\/images\/bastion.PNG","desc":"Player Description"},{"type":"defend","name":"Hanzo","pic":"https:\/\/itsroryg.github.io\/images\/hanzo.PNG","desc":"Player Description"},{"type":"defend","name":"Junkrat","pic":"https:\/\/itsroryg.github.io\/images\/junkrat.PNG","desc":"Player Description"},{"type":"defend","name":"Torbjorn","pic":"https:\/\/itsroryg.github.io\/images\/torb.PNG","desc":"Player Description"},{"type":"defend","name":"Mei","pic":"https:\/\/itsroryg.github.io\/images\/mei.PNG","desc":"Player Description"},{"type":"defend","name":"Widowmaker","pic":"https:\/\/itsroryg.github.io\/images\/widowmaker.PNG","desc":"Player Description"},{"type":"tank","name":"D.VA","pic":"https:\/\/itsroryg.github.io\/images\/dva.PNG","desc":"Player Description"},{"type":"tank","name":"Reinhardt","pic":"https:\/\/itsroryg.github.io\/images\/rein.PNG","desc":"Player Description"},{"type":"tank","name":"Roadhog","pic":"https:\/\/itsroryg.github.io\/images\/roadhog.PNG","desc":"Player Description"},{"type":"tank","name":"Winston","pic":"https:\/\/itsroryg.github.io\/images\/winston.PNG","desc":"Player Description"},{"type":"tank","name":"Zarya","pic":"https:\/\/itsroryg.github.io\/images\/zarya.PNG","desc":"Player Description"},{"type":"healer","name":"Ana","pic":"https:\/\/itsroryg.github.io\/images\/ana.PNG","desc":"Player Description"},{"type":"healer","name":"Lucio","pic":"https:\/\/itsroryg.github.io\/images\/lucio.PNG","desc":"Player Description"},{"type":"healer","name":"Mercy","pic":"https:\/\/itsroryg.github.io\/images\/mercy.PNG","desc":"Player Description"},{"type":"healer","name":"Symmetra","pic":"https:\/\/itsroryg.github.io\/images\/sym.PNG","desc":"Player Description"},{"type":"healer","name":"Zenyatta","pic":"https:\/\/itsroryg.github.io\/images\/zen.PNG","desc":"Player Description"}]';
+    ex.maps = '[{"name":"Assault","pic":"https:\/\/itsroryg.github.io\/images\/maps%201.png","desc":"Map description"},{"name":"Escort","pic":"https:\/\/itsroryg.github.io\/images\/maps%202.png","desc":"Map description"}]';
+    ex.modes = '[{"name":"Quick Play","pic":"https:\/\/itsroryg.github.io\/images\/quickplay.png","desc":"Jumo into a game against other players of your skill level"},{"name":"Arcade","pic":"https:\/\/itsroryg.github.io\/images\/arcade.png","desc":"New game modes!New rules! New maps!"},{"name":"Competitive Play","pic":"https:\/\/itsroryg.github.io\/images\/ranked.png","desc":"Play against other players with the competitive ruleset!"},{"name":"Play VS. AI","pic":"https:\/\/itsroryg.github.io\/images\/ai.png","desc":"Hone your skills against a team of AI-controlled heroes"},{"name":"Custom Games","pic":"https:\/\/itsroryg.github.io\/images\/custom.png","desc":"change the rules and play a game with your friends or AI"}]';
+   </script>
+</body>
+</html>
