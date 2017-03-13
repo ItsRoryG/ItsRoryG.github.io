@@ -1,3 +1,4 @@
+<!--Rory Glover Assign 2 Javascript-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +9,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<!--Stylesheet-->
+
 
   <style>
   	body.grey .navbar {
@@ -91,7 +96,10 @@
 	    margin-bottom: -99999px;
 	    padding-bottom: 99999px;
 	}
+
+  refer to later
     */
+
 	.hero-button.active {
 		background-color: #337ab7;
 		color: #fff;
@@ -118,7 +126,7 @@
 		}
 	}
 
-	/* page loader */
+	/* Page loader */
 	#loader {
   position: fixed;
   z-index: 999;
@@ -189,7 +197,7 @@
   	animation: spinner 1500ms infinite linear;
 }
 
-/* Animation */
+/* Animation CSS3 */
 
 @-webkit-keyframes spinner {
   0% {
@@ -350,19 +358,21 @@
 </head>
 
 
+<!--HTML Layout-->
+
 
 <body class="grey">
 	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top hidden">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+            
+          <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll nav-link" href="#main"><img src="https://itsroryg.github.io/images/overwatch2.png" align=left>Overwatched</a>
             </div>
-            <!--
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            
+
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
@@ -381,11 +391,12 @@
 
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
+            
 
         </div>
-        <!-- /.container-fluid -->
-    </nav>
+        </nav>
+
+
 
     <header>
 		<div class="jumbotron text-center" id="main-head">
@@ -498,6 +509,15 @@
    		<% } %>
    	</div>
    </script>
+
+   <!--Javascript-->
+
+   
+
+
+   <!--UNDERSCORE LIBRARY - REFERENCE THIS LATER-->
+
+
    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
    <script type="text/javascript">
 
@@ -726,10 +746,12 @@
    	})(window, document, _);
 
 
-    var ex={};
-    ex.heroes = '[{"type":"attack","name":"Genji","pic":"https:\/\/itsroryg.github.io\/images\/genji.png","desc":"Player Description"},{"type":"attack","name":"McCree","pic":"https:\/\/itsroryg.github.io\/images\/mcree.png","desc":"Player Description"},{"type":"attack","name":"Pharah","pic":"https:\/\/itsroryg.github.io\/images\/pharah.PNG","desc":"Player Description"},{"type":"attack","name":"Reaper","pic":"https:\/\/itsroryg.github.io\/images\/reaper.PNG","desc":"Player Description"},{"type":"attack","name":"Soldier: 76","pic":"https:\/\/itsroryg.github.io\/images\/76.PNG","desc":"Player Description"},{"type":"attack","name":"Sombra","pic":"https:\/\/itsroryg.github.io\/images\/sombra.PNG","desc":"Player Description"},{"type":"attack","name":"Tracer","pic":"https:\/\/itsroryg.github.io\/images\/tracer.PNG","desc":"Player Description"},{"type":"defend","name":"Bastion","pic":"https:\/\/itsroryg.github.io\/images\/bastion.PNG","desc":"Player Description"},{"type":"defend","name":"Hanzo","pic":"https:\/\/itsroryg.github.io\/images\/hanzo.PNG","desc":"Player Description"},{"type":"defend","name":"Junkrat","pic":"https:\/\/itsroryg.github.io\/images\/junkrat.PNG","desc":"Player Description"},{"type":"defend","name":"Torbjorn","pic":"https:\/\/itsroryg.github.io\/images\/torb.PNG","desc":"Player Description"},{"type":"defend","name":"Mei","pic":"https:\/\/itsroryg.github.io\/images\/mei.PNG","desc":"Player Description"},{"type":"defend","name":"Widowmaker","pic":"https:\/\/itsroryg.github.io\/images\/widowmaker.PNG","desc":"Player Description"},{"type":"tank","name":"D.VA","pic":"https:\/\/itsroryg.github.io\/images\/dva.PNG","desc":"Player Description"},{"type":"tank","name":"Reinhardt","pic":"https:\/\/itsroryg.github.io\/images\/rein.PNG","desc":"Player Description"},{"type":"tank","name":"Roadhog","pic":"https:\/\/itsroryg.github.io\/images\/roadhog.PNG","desc":"Player Description"},{"type":"tank","name":"Winston","pic":"https:\/\/itsroryg.github.io\/images\/winston.PNG","desc":"Player Description"},{"type":"tank","name":"Zarya","pic":"https:\/\/itsroryg.github.io\/images\/zarya.PNG","desc":"Player Description"},{"type":"healer","name":"Ana","pic":"https:\/\/itsroryg.github.io\/images\/ana.PNG","desc":"Player Description"},{"type":"healer","name":"Lucio","pic":"https:\/\/itsroryg.github.io\/images\/lucio.PNG","desc":"Player Description"},{"type":"healer","name":"Mercy","pic":"https:\/\/itsroryg.github.io\/images\/mercy.PNG","desc":"Player Description"},{"type":"healer","name":"Symmetra","pic":"https:\/\/itsroryg.github.io\/images\/sym.PNG","desc":"Player Description"},{"type":"healer","name":"Zenyatta","pic":"https:\/\/itsroryg.github.io\/images\/zen.PNG","desc":"Player Description"}]';
-    ex.maps = '[{"name":"Assault","pic":"https:\/\/itsroryg.github.io\/images\/maps%201.png","desc":"Map description"},{"name":"Escort","pic":"https:\/\/itsroryg.github.io\/images\/maps%202.png","desc":"Map description"}]';
-    ex.modes = '[{"name":"Quick Play","pic":"https:\/\/itsroryg.github.io\/images\/quickplay.png","desc":"Jumo into a game against other players of your skill level"},{"name":"Arcade","pic":"https:\/\/itsroryg.github.io\/images\/arcade.png","desc":"New game modes!New rules! New maps!"},{"name":"Competitive Play","pic":"https:\/\/itsroryg.github.io\/images\/ranked.png","desc":"Play against other players with the competitive ruleset!"},{"name":"Play VS. AI","pic":"https:\/\/itsroryg.github.io\/images\/ai.png","desc":"Hone your skills against a team of AI-controlled heroes"},{"name":"Custom Games","pic":"https:\/\/itsroryg.github.io\/images\/custom.png","desc":"change the rules and play a game with your friends or AI"}]';
+
+/* External JSON */
+
+$.get('data.json')
+
+    
    </script>
 </body>
 </html>
