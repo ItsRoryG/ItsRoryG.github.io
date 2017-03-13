@@ -749,9 +749,14 @@
 
 /* External JSON */
 
-$.get('data.json')
+$.getJSON('data.json', function(data) {
+    //do stuff with your data here
+});
+
+
+</script>
 
     
-   </script>
+   
 </body>
 </html>
