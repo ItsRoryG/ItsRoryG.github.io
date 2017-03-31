@@ -1,3 +1,9 @@
+       /*
+
+       Assignment 2 - Rory Glover u1473240
+
+       */
+
         if (!Array.prototype.find) {
 	  Array.prototype.find = function(predicate) {
 	    if (this == null) {
@@ -20,6 +26,8 @@
 	    return undefined;
 	  };
 	}
+
+
 
 
 var ex={};
@@ -123,7 +131,11 @@ var ex={};
 							return div.innerHTML;
 
 						})(tmpl);
+
+						ignore this come back to later after lecture
                         */
+
+
                         var container = document.getElementById('content');
 						container.innerHTML = instance.decodeHtml(out);
 						document.getElementById('main').classList.add('hidden');
@@ -162,6 +174,8 @@ var ex={};
 		   	}
 
 		   	/* heroes inline navigation */
+
+
 		   	document.getElementById('content').addEventListener('click',function(e){
 		   		if(e.target.classList.contains('hero-button')) {
 		   			document.getElementById('loader').style.display='block';
@@ -220,3 +234,4 @@ var ex={};
 	   });
 
 })(window, document, _);
+
